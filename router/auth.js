@@ -64,8 +64,7 @@ router.post('/login', async(req,res)=>{
             // TO STORE TOKEN IN COOKIE
             const token = await userFound.generateAuthToken()
             res.cookie("jwtoken", token,{
-                expires: new Date(Date.now()+ 25292000000),
-                httpOnly: false,
+                expires: new Date(Date.now()+ 25292000000)
             })
 
 
