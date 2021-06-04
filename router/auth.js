@@ -6,7 +6,7 @@ const authenticate = require('../middleware/authenticate')
 require('../db/conn')
 const User = require('../models/userSchema')
 router.get('/home',authenticate,(req,res)=>{
-    // res.send("Hello  from router")
+    res.send("Hello  from router")
     res.status(200).send(req.rootUser)
 })
 
