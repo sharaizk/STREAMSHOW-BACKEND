@@ -17,16 +17,6 @@ app.use(cookies());
 
 app.use(cors());
 
-// app.use((req,res,next)=>{
-//     res.header('Access-Control-Allow-Origin','*')
-//     res.header('Access-Control-Allow-Headers','*')
-//     if(req.methdod ==='OPTIONS'){
-//         res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET')
-//         return res.status(200).json({})
-//     }
-//     next()
-// })
-// User authentincation with router
 app.use(require('./router/auth'))
 // Stream with router
 app.use(require('./router/stream'))
