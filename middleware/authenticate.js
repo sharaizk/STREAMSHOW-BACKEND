@@ -16,7 +16,6 @@ const authenticate = async(req,res,next) =>{
 
         next()
     }catch(e){
-        res.send("Hello  from router")
         res.status(400).json({error: 'User Not Logged In'})
     }
 
