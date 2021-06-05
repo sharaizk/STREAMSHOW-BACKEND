@@ -1,15 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const authenticate = require('../middleware/authenticate')
 require('../db/conn')
 const User = require('../models/userSchema')
-router.get('/home',authenticate,(req,res)=>{
-
-    res.status(200).send(req.rootUser)
-})
-
 
 // CREATING A NEW USER
 router.post('/register', async(req,res)=>{
@@ -61,13 +54,6 @@ router.post('/login', async(req,res)=>{
             // THE REASON WE DID IT LIKE THIS WAS BECAUSE OF ENCRYPTION
 
             const isMatch = await bcrypt.compare(password, userFound.password)
-            // TO STORE TOKEN IN COOKIE
-            const token = await userFound.generateAuthToken()
-            res.cookie("jwtoken", token,{
-                expires: new Date(Date.now()+ 25292000000),
-                secure: false,
-                httpOnly: false
-            })
 
 
             if(!isMatch){
@@ -86,12 +72,6 @@ router.post('/login', async(req,res)=>{
     catch(err){
         console.log(err)
     }
-})
-
-// LOGOUT THE USER
-router.get('/logout', (req,res)=>{
-    res.clearCookie('jwtoken', {path:'/'})
-    res.status(200).send('user')
 })
 
 module.exports = router

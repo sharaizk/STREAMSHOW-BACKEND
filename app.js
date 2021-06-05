@@ -20,7 +20,6 @@ app.use(cors());
 app.use(require('./router/auth'))
 // Stream with router
 app.use(require('./router/stream'))
-app.set('trust proxy', 1)
 
 app.get('/',(req,res)=>{
     res.send("Hello World")
