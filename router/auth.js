@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 require('../db/conn')
 const User = require('../models/userSchema')
@@ -41,6 +42,7 @@ router.post('/register', async(req,res)=>{
 // SIGNING IN A REGISTERED USER
 router.post('/login', async(req,res)=>{
     try{
+        // let token
         const {username, password} = req.body
         // IF A FIELD IS EMPTY OR NOT
         if(!username || !password){
@@ -54,7 +56,14 @@ router.post('/login', async(req,res)=>{
             // THE REASON WE DID IT LIKE THIS WAS BECAUSE OF ENCRYPTION
 
             const isMatch = await bcrypt.compare(password, userFound.password)
-
+            
+            // To process tokens
+            /* token = await userFound.generateAuthToken()
+            res.cookie('jwtoken',token,{
+                expires: new Date(Date.now()+25892000000),
+                httpOnly: true
+            })
+            */ 
 
             if(!isMatch){
                  res.status(400).json({error: 'USER Error'})
