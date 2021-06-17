@@ -30,6 +30,15 @@ const userSchema = new mongoose.Schema({
     }
   })
 
+//   To use jwt put this in the schema
+// tokens:[
+//     {
+//         token:{
+//             type: String,
+//             required: true
+//         }
+//     }
+// ]
 
 // PASSWORD HASHING
 userSchema.pre('save', async function(next){
@@ -39,6 +48,19 @@ userSchema.pre('save', async function(next){
     next()
 })
 
+
+// Generating Tokens
+// userSchema.methods.generateAuthToken = async function(){
+//     try{
+//         let genToken = jwt.sign({_id:this._id}, process.env.SECRET_KEY)
+//         this.tokens = this.tokens.concat({token: genToken})
+//         await this.save()
+//         return token
+//     }
+//     catch(e){
+//         console.log(err)
+//     }
+// }
 
 const User = mongoose.model('USER',userSchema)
 module.exports = User
